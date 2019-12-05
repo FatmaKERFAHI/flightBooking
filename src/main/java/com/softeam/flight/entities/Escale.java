@@ -1,14 +1,17 @@
 package com.softeam.flight.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 @Entity
-
-/*@PrimaryKeyJoinColumn(name = "idEscale")*/
 public class Escale implements Serializable{
 	/**
 	 * 
@@ -20,6 +23,7 @@ public class Escale implements Serializable{
 	private Date EArrivalDate;
 	private Date EDepartureHour;
 	private Date EArrivalHour;
+	
 	public Escale()
 	{}
 	public Escale(int idEscale, Date eDeparturDate, Date eArrivalDate, Date eDepartureHour, Date eArrivalHour) {
@@ -60,5 +64,5 @@ public class Escale implements Serializable{
 	public void setEArrivalHour(Date eArrivalHour) {
 		EArrivalHour = eArrivalHour;
 	}
-	
+
 }

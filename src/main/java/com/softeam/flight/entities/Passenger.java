@@ -3,21 +3,23 @@ package com.softeam.flight.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+
 
 @Entity
 @Table(name = "ST_PASSENGER")
-/*@PrimaryKeyJoinColumn(name = "id")*/
 public class Passenger implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	//Attributs
@@ -38,16 +40,15 @@ public class Passenger implements Serializable{
 	private int numPhone;
 	@Column(name = "mail")
 	private char mail;
-
-	
 	//constucteur vide
 	public Passenger() {
 		super();
 	}
 	
+
+
 	//constructeur avec plusieurs elements
-	public Passenger(int idPassenger, Kind kind, String name, String firstName, Date age, char numPassport, int numPhone,
-			char mail) {
+	public Passenger(int idPassenger, Kind kind, String name, String firstName, Date age, char numPassport, int numPhone, char mail) {
 		super();
 		this.idPassenger = idPassenger;
 		this.kind = kind;
@@ -128,16 +129,19 @@ public class Passenger implements Serializable{
 
 
 	
-	//To string
 	@Override
 	public String toString() {
-		return "Passenger [idPassenger=" + idPassenger + ", kind=" + kind + ", name=" + name + ", firstName=" + firstName + ", age="
-				+ age + ", numNassport=" + numPassport + ", numPhone=" + numPhone + ", mail=" + mail + "]";
+		return "Passenger [idPassenger=" + idPassenger + ", kind=" + kind + ", name=" + name + ", firstName="
+				+ firstName + ", age=" + age + ", numPassport=" + numPassport + ", numPhone=" + numPhone + ", mail="
+				+ mail + "]";
 	}
+
 	
-	
-	
-		
-	
+	/**
+	 * @param firstName the firstName to set
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
 }//fin Passenger
