@@ -10,56 +10,53 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.Data;
+
+@Data
 @Entity
 public class Reservation implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	@Id
-	private int idReserv;
-	private Date DateReserv;
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
-	private Passenger passgr;
-
 	
-	public Reservation() {
+	@Id
+	private int idReservation;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
+	private Date DateReservation;
+	
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
+	private Passenger passenger;
+
+	public int getIdReservation() {
+		return idReservation;
 	}
 
-	public Reservation(int idReserv, Date dateReserv, Passenger passgr) {
-		super();
-		this.idReserv = idReserv;
-		DateReserv = dateReserv;
-		this.passgr = passgr;
+	public void setIdReservation(int idReservation) {
+		this.idReservation = idReservation;
 	}
 
-	public int getIdReserv() {
-		return idReserv;
+	public Date getDateReservation() {
+		return DateReservation;
 	}
 
-	public void setIdReserv(int idReserv) {
-		this.idReserv = idReserv;
+	public void setDateReservation(Date dateReservation) {
+		DateReservation = dateReservation;
 	}
 
-	public Date getDateReserv() {
-		return DateReserv;
+	public Passenger getPassenger() {
+		return passenger;
 	}
 
-	public void setDateReserv(Date dateReserv) {
-		DateReserv = dateReserv;
+	public void setPassenger(Passenger passenger) {
+		this.passenger = passenger;
 	}
 
-	public Passenger getPassgr() {
-		return passgr;
-	}
-
-	public void setPassgr(Passenger passgr) {
-		this.passgr = passgr;
-	}
-
-	@Override
-	public String toString() {
-		return "Reservation [idReserv=" + idReserv + ", DateReserv=" + DateReserv + ", passgr=" + passgr + "]";
-	}
 
 
 }

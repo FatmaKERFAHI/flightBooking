@@ -12,93 +12,87 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+import lombok.Data;
+
+/**
+ * The Class Country.
+ * @author Fatma KERFAHI
+ */
+
+
+@Data
 @Entity
 @Table(name = "COUNTRY")
 public class Country implements Serializable{
 
-	
-
-
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The iso code. */
 	@Id
-	private int idCountry;
+	private String isoCode;
+	
+	/** The name. */
 	private String name;
-	private int code;
 	
+	/** The airports. */
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
-	private List<Airport> airpts = new ArrayList<Airport>();
-	
-	
-	public Country(int idCountry, String name, int code, List<Airport> airpts) {
-		super();
-		this.idCountry = idCountry;
-		this.name = name;
-		this.code = code;
-		this.airpts = airpts;
+	private List<Airport> airports = new ArrayList<Airport>();
+
+	/**
+	 * Gets the iso code.
+	 *
+	 * @return the iso code
+	 */
+	public String getIsoCode() {
+		return isoCode;
 	}
 
-	public Country(String name, int code, int idCountry) {
-		super();
-		this.name = name;
-		this.code = code;
-		this.idCountry = idCountry;
+	/**
+	 * Sets the iso code.
+	 *
+	 * @param isoCode the new iso code
+	 */
+	public void setIsoCode(String isoCode) {
+		this.isoCode = isoCode;
 	}
-	
-	
-	
-	//Constructeur
-	public Country() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	//Getter&Setter
+
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public int getCode() {
-		return code;
+	/**
+	 * Gets the airports.
+	 *
+	 * @return the airports
+	 */
+	public List<Airport> getAirports() {
+		return airports;
 	}
-
-	public void setCode(int code) {
-		this.code = code;
-	}
-
-	public int getIdCountry() {
-		return idCountry;
-	}
-
-	public void setIdCountry(int idCountry) {
-		this.idCountry = idCountry;
-	}
-		
-	@Override
-	public String toString() {
-		return "Country [idCountry=" + idCountry + ", name=" + name + ", code=" + code + ", airpts=" + airpts + "]";
-	}
-
-
 
 	/**
-	 * @return the airpts
+	 * Sets the airports.
+	 *
+	 * @param airports the new airports
 	 */
-	public List<Airport> getAirpts() {
-		return airpts;
+	public void setAirports(List<Airport> airports) {
+		this.airports = airports;
 	}
-
-
-
-	/**
-	 * @param airpts the airpts to set
-	 */
-	public void setAirpts(List<Airport> airpts) {
-		this.airpts = airpts;
-	}
-	
 
 }

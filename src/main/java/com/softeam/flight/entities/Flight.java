@@ -7,187 +7,249 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.softeam.flight.enums.ClassVol;
+import com.softeam.flight.enums.TypeVol;
+
+import lombok.Data;
+
+/**
+ * The Class Flight.
+ * @author Ibtihel
+ */
+
+
+@Data
 @Entity
-/*@PrimaryKeyJoinColumn(name = "idFlight")*/
 public class Flight implements Serializable 
 {
-	public Flight(int idFlight, Date departurDate, Date arrivalDate, Date departureHour, Date arrivalHour, int price,
-			TypeVol type, int numPlaces, List<Escale> esc, Airport arport, AirCompany arcmp, Transaction trans) {
-		super();
-		this.idFlight = idFlight;
-		DeparturDate = departurDate;
-		ArrivalDate = arrivalDate;
-		DepartureHour = departureHour;
-		ArrivalHour = arrivalHour;
-		this.price = price;
-		Type = type;
-		NumPlaces = numPlaces;
-		this.esc = esc;
-		Arport = arport;
-		Arcmp = arcmp;
-		this.trans = trans;
-	}
-	/**
-	 * 
-	 */
-	
+
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The id flight. */
 	@Id
-	private int idFlight;
-	private Date DeparturDate;
-	private Date ArrivalDate;
-	private Date DepartureHour;
-	private Date ArrivalHour;
-	private int price;
-	private TypeVol Type;
-	private int NumPlaces;
+	private String idFlight;
+	
+	/** The departure date. */
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date departureDate;
+	
+	/** The arrival date. */
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date arrivalDate;
+	
+	/** The price. */
+	private double price;
+	
+	/** The typeVol */
+	@Enumerated(EnumType.STRING)
+	private TypeVol typeVol;
+	
+	@Enumerated(EnumType.STRING)
+	private ClassVol classVol;
+	
+	/** The num places. */
+	private int numPlaces;
+	
+	/**  The escale. */
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
-	private List<Escale> esc = new ArrayList<Escale>();
+	private List<Escale> escale = new ArrayList<Escale>();
+	
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
-	private Airport Arport;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	private Airport departure;
+	
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
-	private AirCompany Arcmp;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	private Airport arrival;
+	
+	/**  The air Company. */
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
-	private Transaction trans;
-	public Flight() {
-		super();
-	}
-	public Flight(Date departurDate, Date arrivalDate, Date departureHour, Date arrivalHour, int price, TypeVol type,
-			int numPlaces) 
-	{
-		super();
-		DeparturDate = departurDate;
-		ArrivalDate = arrivalDate;
-		DepartureHour = departureHour;
-		ArrivalHour = arrivalHour;
-		this.price = price;
-		Type = type;
-		NumPlaces = numPlaces;
-		
-	}
-	public Date getDeparturDate() {
-		return DeparturDate;
-	}
-	public void setDeparturDate(Date departurDate) {
-		DeparturDate = departurDate;
-	}
-	public Date getArrivalDate() {
-		return ArrivalDate;
-	}
-	public void setArrivalDate(Date arrivalDate) {
-		ArrivalDate = arrivalDate;
-	}
-	public Date getDepartureHour() {
-		return DepartureHour;
-	}
-	public void setDepartureHour(Date departureHour) {
-		DepartureHour = departureHour;
-	}
-	public Date getArrivalHour() {
-		return ArrivalHour;
-	}
-	public void setArrivalHour(Date arrivalHour) {
-		ArrivalHour = arrivalHour;
-	}
-	public int getPrice() {
-		return price;
-	}
-	public void setPrice(int price) {
-		this.price = price;
-	}
-	public TypeVol getType() {
-		return Type;
-	}
-	public void setType(TypeVol type) {
-		Type = type;
-	}
-	public int getNumPlaces() {
-		return NumPlaces;
-	}
-	public void setNumPlaces(int numPlaces) {
-		NumPlaces = numPlaces;
-	}
-	@Override
-	public String toString() {
-		return "Flight [idFlight=" + idFlight + ", DeparturDate=" + DeparturDate + ", ArrivalDate=" + ArrivalDate
-				+ ", DepartureHour=" + DepartureHour + ", ArrivalHour=" + ArrivalHour + ", price=" + price + ", Type="
-				+ Type + ", NumPlaces=" + NumPlaces + ", esc=" + esc + ", Arport=" + Arport + ", Arcmp=" + Arcmp
-				+ ", trans=" + trans + "]";
-	}
-	public int getIdFlight() {
+	private AirCompany airCompany;
+
+
+	/**
+	 * Gets the id flight.
+	 *
+	 * @return the id flight
+	 */
+	public String getIdFlight() {
 		return idFlight;
 	}
-	public void setIdFlight(int idFlight) {
+
+	/**
+	 * Sets the id flight.
+	 *
+	 * @param idFlight the new id flight
+	 */
+	public void setIdFlight(String idFlight) {
 		this.idFlight = idFlight;
 	}
+
 	/**
-	 * @return the esc
+	 * Gets the departure date.
+	 *
+	 * @return the departure date
 	 */
-	public List<Escale> getEsc() {
-		return esc;
+	public Date getDepartureDate() {
+		return departureDate;
 	}
+
 	/**
-	 * @param esc the esc to set
+	 * Sets the departure date.
+	 *
+	 * @param departureDate the new departure date
 	 */
-	public void setEsc(List<Escale> esc) {
-		this.esc = esc;
+	public void setDepartureDate(Date departureDate) {
+		this.departureDate = departureDate;
 	}
+
 	/**
-	 * @return the arport
+	 * Gets the arrival date.
+	 *
+	 * @return the arrival date
 	 */
-	public Airport getArport() {
-		return Arport;
+	public Date getArrivalDate() {
+		return arrivalDate;
 	}
+
 	/**
-	 * @param arport the arport to set
+	 * Sets the arrival date.
+	 *
+	 * @param arrivalDate the new arrival date
 	 */
-	public void setArport(Airport arport) {
-		Arport = arport;
+	public void setArrivalDate(Date arrivalDate) {
+		this.arrivalDate = arrivalDate;
 	}
+
 	/**
-	 * @return the arcmp
+	 * Gets the price.
+	 *
+	 * @return the price
 	 */
-	public AirCompany getArcmp() {
-		return Arcmp;
+	public double getPrice() {
+		return price;
 	}
+
 	/**
-	 * @param arcmp the arcmp to set
+	 * Sets the price.
+	 *
+	 * @param price the new price
 	 */
-	public void setArcmp(AirCompany arcmp) {
-		Arcmp = arcmp;
+	public void setPrice(double price) {
+		this.price = price;
 	}
+
 	/**
-	 * @return the trans
+	 * Gets the type.
+	 *
+	 * @return the type
 	 */
-	public Transaction getTrans() {
-		return trans;
+	public TypeVol getTypeVol() {
+		return typeVol;
 	}
+
 	/**
-	 * @param trans the trans to set
+	 * Sets the type.
+	 *
+	 * @param type the new type
 	 */
-	public void setTrans(Transaction trans) {
-		this.trans = trans;
+	public void setTypeVol(TypeVol typeVol) {
+		this.typeVol = typeVol;
 	}
+
+	public ClassVol getClassVol() {
+		return classVol;
+	}
+
+	public void setClassVol(ClassVol classVol) {
+		this.classVol = classVol;
+	}
+
 	/**
-	 * @param e
-	 * @return
-	 * @see java.util.List#add(java.lang.Object)
+	 * Gets the num places.
+	 *
+	 * @return the num places
 	 */
-	public boolean add(Escale e) {
-		return esc.add(e);
+	public int getNumPlaces() {
+		return numPlaces;
 	}
+
 	/**
-	 * @param o
-	 * @return
-	 * @see java.util.List#remove(java.lang.Object)
+	 * Sets the num places.
+	 *
+	 * @param numPlaces the new num places
 	 */
-	public boolean remove(Object o) {
-		return esc.remove(o);
+	public void setNumPlaces(int numPlaces) {
+		this.numPlaces = numPlaces;
 	}
-	
+
+	/**
+	 * Gets the escale.
+	 *
+	 * @return the escale
+	 */
+	public List<Escale> getEscale() {
+		return escale;
+	}
+
+
+	public Airport getDeparture() {
+		return departure;
+	}
+
+	public void setDeparture(Airport departure) {
+		this.departure = departure;
+	}
+
+	public Airport getArrival() {
+		return arrival;
+	}
+
+	public void setArrival(Airport arrival) {
+		this.arrival = arrival;
+	}
+
+	/**
+	 * Sets the escale.
+	 *
+	 * @param escale the new escale
+	 */
+	public void setEscale(List<Escale> escale) {
+		this.escale = escale;
+	}
+
+	/**
+	 * Gets the air company.
+	 *
+	 * @return the air company
+	 */
+	public AirCompany getAirCompany() {
+		return airCompany;
+	}
+
+	/**
+	 * Sets the air company.
+	 *
+	 * @param airCompany the new air company
+	 */
+	public void setAirCompany(AirCompany airCompany) {
+		this.airCompany = airCompany;
+	}
 
 }

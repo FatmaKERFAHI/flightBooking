@@ -6,6 +6,4 @@ public enum Kind {
 	monsieurs,
 	enfant,
 	bebe;
-	
-
-}//fin enum 
+}

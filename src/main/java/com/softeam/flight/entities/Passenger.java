@@ -40,29 +40,7 @@ public class Passenger implements Serializable{
 	private int numPhone;
 	@Column(name = "mail")
 	private char mail;
-	//constucteur vide
-	public Passenger() {
-		super();
-	}
 	
-
-
-	//constructeur avec plusieurs elements
-	public Passenger(int idPassenger, Kind kind, String name, String firstName, Date age, char numPassport, int numPhone, char mail) {
-		super();
-		this.idPassenger = idPassenger;
-		this.kind = kind;
-		this.name = name;
-		this.firstName = firstName;
-		this.age = age;
-		this.numPassport = numPassport;
-		this.numPhone = numPhone;
-		this.mail = mail;
-		
-	}
-
-	
-	//Get & Set
 	public int getIdPassenger() {
 		return idPassenger;
 	}
