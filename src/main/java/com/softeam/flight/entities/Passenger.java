@@ -3,16 +3,14 @@ package com.softeam.flight.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.softeam.flight.enums.Kind;
 
 
 
@@ -22,11 +20,10 @@ public class Passenger implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	//Attributs
 	@Id	
 	@Column(name = "id_passenger")
 	private int idPassenger;
-	@Column(name = "kind")
+	@Enumerated(EnumType.STRING)
 	private Kind kind;
 	@Column(name = "name")
 	private String name;
@@ -122,4 +119,4 @@ public class Passenger implements Serializable{
 		this.firstName = firstName;
 	}
 
-}//fin Passenger
+}

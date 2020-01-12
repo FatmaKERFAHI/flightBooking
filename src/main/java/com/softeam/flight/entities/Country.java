@@ -36,10 +36,6 @@ public class Country implements Serializable{
 	
 	/** The name. */
 	private String name;
-	
-	/** The airports. */
-	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
-	private List<Airport> airports = new ArrayList<Airport>();
 
 	/**
 	 * Gets the iso code.
@@ -75,24 +71,6 @@ public class Country implements Serializable{
 	 */
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	/**
-	 * Gets the airports.
-	 *
-	 * @return the airports
-	 */
-	public List<Airport> getAirports() {
-		return airports;
-	}
-
-	/**
-	 * Sets the airports.
-	 *
-	 * @param airports the new airports
-	 */
-	public void setAirports(List<Airport> airports) {
-		this.airports = airports;
 	}
 
 }

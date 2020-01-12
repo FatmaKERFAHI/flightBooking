@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.softeam.flight.entities.Airport;
 
 public interface AirportRepository extends JpaRepository<Airport, String> {
-	@Query("SELECT a.id FROM Airport a")
+	@Query("SELECT a.code FROM Airport a")
 	String getIdAirport(); 
 
 }
