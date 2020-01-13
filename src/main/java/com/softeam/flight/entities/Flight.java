@@ -36,6 +36,23 @@ import lombok.Data;
 public class Flight implements Serializable 
 {
 
+	public Flight(String idFlight, Date departureDate, Date arrivalDate, double price, TypeVol typeVol,
+			ClassVol classVol, int numPlaces, Airport departure, Airport arrival, AirCompany airCompany) {
+		super();
+		this.idFlight = idFlight;
+		this.departureDate = departureDate;
+		this.arrivalDate = arrivalDate;
+		this.price = price;
+		this.typeVol = typeVol;
+		this.classVol = classVol;
+		this.numPlaces = numPlaces;
+		this.departure = departure;
+		this.arrival = arrival;
+		this.airCompany = airCompany;
+	}
+	public Flight() {
+		super();
+	}
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
@@ -67,19 +84,17 @@ public class Flight implements Serializable
 	private int numPlaces;
 	
 	/**  The escale. */
-	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
-	private List<Escale> escale = new ArrayList<Escale>();
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@ManyToOne(cascade = { CascadeType.ALL, CascadeType.ALL}, fetch = FetchType.EAGER)
+	//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Airport departure;
 	
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@ManyToOne(cascade = { CascadeType.ALL, CascadeType.ALL }, fetch = FetchType.EAGER)
+	//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Airport arrival;
 	
 	/**  The air Company. */
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = { CascadeType.ALL, CascadeType.ALL}, fetch = FetchType.EAGER)
 	private AirCompany airCompany;
 
 
@@ -204,10 +219,6 @@ public class Flight implements Serializable
 	 *
 	 * @return the escale
 	 */
-	public List<Escale> getEscale() {
-		return escale;
-	}
-
 
 	public Airport getDeparture() {
 		return departure;
@@ -225,14 +236,6 @@ public class Flight implements Serializable
 		this.arrival = arrival;
 	}
 
-	/**
-	 * Sets the escale.
-	 *
-	 * @param escale the new escale
-	 */
-	public void setEscale(List<Escale> escale) {
-		this.escale = escale;
-	}
 
 	/**
 	 * Gets the air company.
@@ -250,6 +253,13 @@ public class Flight implements Serializable
 	 */
 	public void setAirCompany(AirCompany airCompany) {
 		this.airCompany = airCompany;
+	}
+
+	@Override
+	public String toString() {
+		return "Flight [idFlight=" + idFlight + ", departureDate=" + departureDate + ", arrivalDate=" + arrivalDate
+				+ ", price=" + price + ", typeVol=" + typeVol + ", classVol=" + classVol + ", numPlaces=" + numPlaces
+				+ ", departure=" + departure + ", arrival=" + arrival + ", airCompany=" + airCompany + "]";
 	}
 
 }

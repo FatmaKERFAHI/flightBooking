@@ -3,6 +3,7 @@ package com.softeam.flight.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -71,6 +72,10 @@ public class Transaction implements Serializable{
 	 */
 	public void setUse(Passenger pass) {
 		this.pass = pass;
+	}
+	public Map<String, ?> getIdTransaction() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

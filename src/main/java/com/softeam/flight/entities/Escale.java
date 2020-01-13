@@ -3,6 +3,7 @@ package com.softeam.flight.entities;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import lombok.Data;
@@ -10,17 +11,26 @@ import lombok.Data;
 @Data
 @Entity
 public class Escale implements Serializable{
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+	@GeneratedValue
 	private int idEscale;
 	private Date EDeparturDate;
 	private Date EArrivalDate;
-	private Date EDepartureHour;
-	private Date EArrivalHour;
 	
+	public Escale() {
+		super();
+	}
+	public Escale(int idEscale, Date eDeparturDate, Date eArrivalDate) {
+		super();
+		this.idEscale = idEscale;
+		EDeparturDate = eDeparturDate;
+		EArrivalDate = eArrivalDate;
+	}
 	
 	public int getIdEscale() {
 		return idEscale;
@@ -40,17 +50,11 @@ public class Escale implements Serializable{
 	public void setEArrivalDate(Date eArrivalDate) {
 		EArrivalDate = eArrivalDate;
 	}
-	public Date getEDepartureHour() {
-		return EDepartureHour;
+	@Override
+	public String toString() {
+		return "Escale [idEscale=" + idEscale + ", EDeparturDate=" + EDeparturDate + ", EArrivalDate=" + EArrivalDate
+				+ "]";
 	}
-	public void setEDepartureHour(Date eDepartureHour) {
-		EDepartureHour = eDepartureHour;
-	}
-	public Date getEArrivalHour() {
-		return EArrivalHour;
-	}
-	public void setEArrivalHour(Date eArrivalHour) {
-		EArrivalHour = eArrivalHour;
-	}
+	
 
 }

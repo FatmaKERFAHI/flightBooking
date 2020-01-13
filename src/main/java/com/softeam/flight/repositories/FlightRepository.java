@@ -14,23 +14,13 @@ public interface FlightRepository extends JpaRepository<Flight, String> {
 	@Query("SELECT f.idFlight FROM Flight f")
 	String getIdFlight();
 
-	@Query("SELECT f FROM Flight f WHERE DATE(f.departureDate)=DATE(:departureDate) AND DATE(f.arrivalDate)=DATE(:arrivalDate) AND f.departure.idAirport=:departure "
-			+ "AND f.arrival.idAirport=:arrival AND f.classVol=:classVol AND f.typeVol=:typeVol")
+	@Query("SELECT f FROM Flight f WHERE DATE(f.departureDate)=DATE(:departureDate) AND DATE(f.arrivalDate)=DATE(:arrivalDate) AND f.departure.code=:departure "
+			+ "AND f.arrival.code=:arrival AND f.classVol=:classVol AND f.typeVol=:typeVol")
 	List<Flight> getFlightsByWhere(@Param("departureDate") String departureDate, @Param("arrivalDate") String arrivalDate,
-			@Param("departure") int departure, @Param("arrival") int arrival, @Param("classVol") ClassVol classVol,
+			@Param("departure") String departure, @Param("arrival") String arrival, @Param("classVol") ClassVol classVol,
 			@Param("typeVol") TypeVol typeVol);
+	
+	boolean existsByidFlight(String id);
 
-	@Query("SELECT f FROM Flight f WHERE DATE(f.departureDate)=DATE(:departureDate) AND DATE(f.arrivalDate)=DATE(:arrivalDate)")
-	List<Flight> getFlightsByWhere(@Param("departureDate") String departureDate, @Param("arrivalDate")  String arrivalDate);
-
-	
-	@Query("SELECT f FROM Flight f WHERE DATE(f.departureDate)=DATE('2019-10-18') AND DATE(f.arrivalDate)=DATE('2019-10-20')")
-	List<Flight> getFlightsByWhere();
-	
-	
-	
-	@Query("SELECT f FROM Flight f WHERE f.departure.idAirport=:departure "
-			+ "AND f.arrival.idAirport=:arrival AND f.classVol=:classVol AND f.typeVol=:typeVol")
-	List<Flight> getFlightsByWhere(@Param("departure") int departure, @Param("arrival") int arrival,
-			@Param("classVol") ClassVol classVol, @Param("typeVol") TypeVol typeVol);
+	Flight findByidFlight(String id);
 }
