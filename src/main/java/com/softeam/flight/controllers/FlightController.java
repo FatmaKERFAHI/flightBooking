@@ -38,7 +38,6 @@ import io.swagger.annotations.ApiOperation;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/flight")
-
 public class FlightController {
 	
 	/** The flight service. */
